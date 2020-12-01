@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "78174672111",
+    "firebase_url": "https://coronacontacts-de7f4.firebaseio.com",
+    "project_id": "coronacontacts-de7f4",
+    "storage_bucket": "coronacontacts-de7f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78174672111:android:b2b7272a9e0d9b6d6bb71a",
+        "android_client_info": {
+          "package_name": "com.wwi18seb.coronacontacts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "78174672111-qqd5ds5rqk1b6pom5rooq99a6vtrv4m5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBd9vPYcvzFletPqCTuQmB19nh0-BA8WAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "78174672111-qqd5ds5rqk1b6pom5rooq99a6vtrv4m5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
