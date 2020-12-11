@@ -1,3 +1,5 @@
+import 'package:coronacontacts/contactdata_screen.dart';
+import 'package:coronacontacts/transmitdata_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -104,6 +106,22 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ContactDataScreen()));
+                },
+                child: Text('Go to Forms')),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TransmitDataScreen()));
+                },
+                child: Text('Go to Scanner'))
           ],
         ),
       ),
