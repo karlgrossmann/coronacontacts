@@ -19,15 +19,28 @@ class ContactDataScreenState extends State<ContactDataScreen> {
 
   Widget _buildNameField() {
     return TextFormField(
+      style: TextStyle(
+          color: Color(0xFF1B1A22),
+          fontWeight: FontWeight.bold,
+      ),
       decoration: InputDecoration(
-          labelText: null,
-          fillColor: Color(0xFFEBEBEB),
-          filled: true,
+          contentPadding: EdgeInsets.only(top: 20.0, bottom: 20.0, right: 15.0, left: 15.0),
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
           border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0))),
-          enabledBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              borderSide: BorderSide(color: Color(0xFFEBEBEB)))),
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            borderSide: BorderSide(color: Color(0xFFF0EFF1)),
+          ),
+          focusedBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            borderSide: BorderSide(color: Colors.blue),
+          ),
+          labelText: 'Full Name',
+          labelStyle: TextStyle(
+            color: Color(0xFF848286),
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+          ),
+      ),
       validator: (String value) {
         if (value.isEmpty) {
           return 'Name is required';
@@ -42,15 +55,28 @@ class ContactDataScreenState extends State<ContactDataScreen> {
 
   Widget _buildEmailField() {
     return TextFormField(
+      style: TextStyle(
+          color: Color(0xFF1B1A22),
+          fontWeight: FontWeight.bold,
+      ),
       decoration: InputDecoration(
-          labelText: null,
-          fillColor: Color(0xFFEBEBEB),
-          filled: true,
+          contentPadding: EdgeInsets.only(top: 20.0, bottom: 20.0, right: 15.0, left: 15.0),
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
           border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0))),
-          enabledBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              borderSide: BorderSide(color: Color(0xFFEBEBEB)))),
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            borderSide: BorderSide(color: Color(0xFFF0EFF1)),
+          ),
+          focusedBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            borderSide: BorderSide(color: Colors.blue),
+          ),
+          labelText: 'Email',
+          labelStyle: TextStyle(
+            color: Color(0xFF848286),
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+          ),
+      ),
       validator: (String value) {
         if (value.isEmpty) {
           return 'Email is required';
@@ -72,15 +98,28 @@ class ContactDataScreenState extends State<ContactDataScreen> {
 
   Widget _buildPhoneNumberField() {
     return TextFormField(
+      style: TextStyle(
+          color: Color(0xFF1B1A22),
+          fontWeight: FontWeight.bold,
+      ),
       decoration: InputDecoration(
-          labelText: null,
-          fillColor: Color(0xFFEBEBEB),
-          filled: true,
+          contentPadding: EdgeInsets.only(top: 20.0, bottom: 20.0, right: 15.0, left: 15.0),
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
           border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0))),
-          enabledBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              borderSide: BorderSide(color: Color(0xFFEBEBEB)))),
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            borderSide: BorderSide(color: Color(0xFFF0EFF1)),
+          ),
+          focusedBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            borderSide: BorderSide(color: Colors.blue),
+          ),
+          labelText: 'Phone Number',
+          labelStyle: TextStyle(
+            color: Color(0xFF848286),
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+          ),
+      ),
       validator: (String value) {
         if (value.isEmpty) {
           return 'Phone number is required';
@@ -101,15 +140,28 @@ class ContactDataScreenState extends State<ContactDataScreen> {
 
   Widget _buildStreetField() {
     return TextFormField(
+      style: TextStyle(
+          color: Color(0xFF1B1A22),
+          fontWeight: FontWeight.bold,
+      ),
       decoration: InputDecoration(
-          labelText: null,
-          fillColor: Color(0xFFEBEBEB),
-          filled: true,
+          contentPadding: EdgeInsets.only(top: 20.0, bottom: 20.0, right: 15.0, left: 15.0),
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
           border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0))),
-          enabledBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              borderSide: BorderSide(color: Color(0xFFEBEBEB)))),
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            borderSide: BorderSide(color: Color(0xFFF0EFF1)),
+          ),
+          focusedBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            borderSide: BorderSide(color: Colors.blue),
+          ),
+          labelText: 'Street Name',
+          labelStyle: TextStyle(
+            color: Color(0xFF848286),
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+          ),
+      ),
       validator: (String value) {
         if (value.isEmpty) {
           return 'Street is required';
@@ -124,15 +176,28 @@ class ContactDataScreenState extends State<ContactDataScreen> {
 
   Widget _buildCityField() {
     return TextFormField(
+      style: TextStyle(
+          color: Color(0xFF1B1A22),
+          fontWeight: FontWeight.bold,
+      ),
       decoration: InputDecoration(
-          labelText: null,
-          fillColor: Color(0xFFEBEBEB),
-          filled: true,
+          contentPadding: EdgeInsets.only(top: 20.0, bottom: 20.0, right: 15.0, left: 15.0),
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
           border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0))),
-          enabledBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              borderSide: BorderSide(color: Color(0xFFEBEBEB)))),
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            borderSide: BorderSide(color: Color(0xFFF0EFF1)),
+          ),
+          focusedBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            borderSide: BorderSide(color: Colors.blue),
+          ),
+          labelText: 'City Name',
+          labelStyle: TextStyle(
+            color: Color(0xFF848286),
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+          ),
+      ),
       validator: (String value) {
         if (value.isEmpty) {
           return 'City is required';
@@ -148,15 +213,28 @@ class ContactDataScreenState extends State<ContactDataScreen> {
 
   Widget _buildZipcodeField() {
     return TextFormField(
+      style: TextStyle(
+          color: Color(0xFF1B1A22),
+          fontWeight: FontWeight.bold,
+      ),
       decoration: InputDecoration(
-          labelText: null,
-          fillColor: Color(0xFFEBEBEB),
-          filled: true,
+          contentPadding: EdgeInsets.only(top: 20.0, bottom: 20.0, right: 15.0, left: 15.0),
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
           border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0))),
-          enabledBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              borderSide: BorderSide(color: Color(0xFFEBEBEB)))),
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            borderSide: BorderSide(color: Color(0xFFF0EFF1)),
+          ),
+          focusedBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            borderSide: BorderSide(color: Colors.blue),
+          ),
+          labelText: 'Zip Code',
+          labelStyle: TextStyle(
+            color: Color(0xFF848286),
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+          ),
+      ),
       validator: (String value) {
         if (value.isEmpty) {
           return 'Zipcode is required';
@@ -187,8 +265,37 @@ class ContactDataScreenState extends State<ContactDataScreen> {
         ));
   }
 
+  Widget _buildHeadingText(text) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        text, 
+        style: TextStyle(
+          fontSize: 30, 
+          color: Color(0xFF0213B5), 
+          fontWeight: FontWeight.bold
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDataHint(){
+    return Container(
+        color: Color(0xFFF2F2F2),
+        padding: EdgeInsets.all(15),
+        child: Text(
+          'These information were added during opening the account. Please check if they are correct and edit them if necessary.',
+        ),
+    );
+  }
+
   Widget _buildSaveButton() {
     return RaisedButton(
+        color: Color(0xFF0099FF),
+        padding: EdgeInsets.only(left: 50, right: 50, top: 15, bottom: 15),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+        ),
         child: Text(
           'Save',
           style: TextStyle(color: Colors.white, fontSize: 16),
@@ -211,7 +318,7 @@ class ContactDataScreenState extends State<ContactDataScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Form Demo')),
+        appBar: null,
         body: ListView(
             scrollDirection: Axis.vertical,
             padding: const EdgeInsets.all(20.0),
@@ -221,19 +328,28 @@ class ContactDataScreenState extends State<ContactDataScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    _buildInputLabel('Full Name'),
+                    SizedBox(height: 30),
+                    _buildHeadingText('Contact Details'),
+                    SizedBox(height: 20),
+                    _buildDataHint(),
+                    SizedBox(height: 20),
                     _buildNameField(),
-                    _buildInputLabel('E-Mail'),
+                    SizedBox(height: 20),
+                    //_buildInputLabel('E-Mail'),
                     _buildEmailField(),
-                    _buildInputLabel('Phone'),
+                    SizedBox(height: 20),
+                    //_buildInputLabel('Phone'),
                     _buildPhoneNumberField(),
-                    _buildInputLabel('Street'),
+                    SizedBox(height: 20),
+                    //_buildInputLabel('Street'),
                     _buildStreetField(),
-                    _buildInputLabel('City'),
+                    SizedBox(height: 20),
+                    //_buildInputLabel('City'),
                     _buildCityField(),
-                    _buildInputLabel('Zipcode'),
+                    SizedBox(height: 20),
+                    //_buildInputLabel('Zipcode'),
                     _buildZipcodeField(),
-                    SizedBox(height: 50),
+                    SizedBox(height: 30),
                     _buildSaveButton(),
                   ],
                 ),
