@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class TransmitDataScreen extends StatefulWidget {
   @override
@@ -11,6 +15,31 @@ class TransmitDataScreen extends StatefulWidget {
 
 class TransmitDataScreenState extends State<TransmitDataScreen> {
   String _id;
+  String _customerId;
+
+  /*========  BACKEND CONNECTION =========*/
+
+  // Define an async function to initialize FlutterFire
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  // Create a CollectionReference called users that references the firestore collection
+  CollectionReference visits = FirebaseFirestore.instance.collection('visits');
+
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+  Future<void> addVisit(customer, locality) {
+  // Call the user's CollectionReference to add a new user
+    return visits
+      .add({
+        'customer': '/customers/' + customer, 
+        'locality': '/localities/' + locality, 
+        'time_entry': DateTime.now().millisecondsSinceEpoch
+      })
+      .then((value) => print("Visit added" ))
+      .catchError((error) => print("Failed to add visit: $error"));
+  }
 
   Future _scan() async {
     await Permission.camera.request();
@@ -19,9 +48,18 @@ class TransmitDataScreenState extends State<TransmitDataScreen> {
       print('No return from barcode scanner.');
     } else {
       _id = barcode;
-      print(_id);
+
+      final SharedPreferences prefs = await _prefs;
+      final id = prefs.getString('customerId') ?? 0;
+      print('Customers hash successfully loaded.');
+      _customerId = id;
+
+      addVisit(_id, _customerId);
+      print('Customer ' + _customerId + ' in locality ' + _id + ' transmitted.');
     }
   }
+
+  /*===== BUILD ITEMS =======*/
 
   Widget _buildHeadingText(text) {
     return Align(
@@ -76,22 +114,40 @@ class TransmitDataScreenState extends State<TransmitDataScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: null,
-        body: Container(
-            margin: EdgeInsets.all(24),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(height: 30),
-                _buildHeadingText('Scan Code'),
-                SizedBox(height: 50),
-                _buildScanHint(),
-                SizedBox(height: 30),
-                _buildQRImage(),
-                SizedBox(height: 50),
-                _buildSaveButton()
-              ],
+    return FutureBuilder(
+      // Initialize FlutterFire:
+      future: _initialization,
+      builder: (context, snapshot) {
+        // Check for errors
+        if (snapshot.hasError) {
+          print('Something went wrong');
+          return null;
+        }
+
+        // Once complete, show application
+        if (snapshot.connectionState == ConnectionState.done) {
+          return Scaffold(
+            appBar: null,
+            body: Container(
+                margin: EdgeInsets.all(24),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 30),
+                    _buildHeadingText('Scan Code'),
+                    SizedBox(height: 50),
+                    _buildScanHint(),
+                    SizedBox(height: 30),
+                    _buildQRImage(),
+                    SizedBox(height: 50),
+                    _buildSaveButton()
+                  ],
             )));
-  }
+        }
+
+        // Otherwise, show something whilst waiting for initialization to complete
+        print('Loading ...');
+        return null;
+  });
+}
 }

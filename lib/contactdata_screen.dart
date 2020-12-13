@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class ContactDataScreen extends StatefulWidget {
   @override
@@ -14,8 +18,47 @@ class ContactDataScreenState extends State<ContactDataScreen> {
   String _street;
   String _city;
   String _zipcode;
+
+  String _id;
   
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+
+  /*========  BACKEND CONNECTION =========*/
+
+  // Define an async function to initialize FlutterFire
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  // Create a CollectionReference called users that references the firestore collection
+  CollectionReference customers = FirebaseFirestore.instance.collection('customers');
+
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+  Future<void> _saveId(id) async {
+    final SharedPreferences prefs = await _prefs;
+    
+    prefs.setString('customerId', id);
+    print('Customers hash successfully stored.');
+  }
+
+  Future<void> addCustomer(fullName, email, phone, street, city, zipcode) {
+  // Call the user's CollectionReference to add a new user
+    return customers
+      .add({
+        'name': fullName, 
+        'email': email, 
+        'phone': phone,
+        'street': street,
+        'city': city,
+        'zipcode': zipcode
+      })
+      .then((value) => _saveId(value.id))
+      .catchError((error) => print("Failed to add customer: $error"));
+  }
+
+  /*===== BUILD ITEMS =======*/
 
   Widget _buildNameField() {
     return TextFormField(
@@ -252,19 +295,6 @@ class ContactDataScreenState extends State<ContactDataScreen> {
     );
   }
 
-  Widget _buildInputLabel(text) {
-    return Align(
-        alignment: Alignment.centerLeft,
-        child: Container(
-          margin: EdgeInsets.only(bottom: 10.0, top: 10.0),
-          child: Text(
-            text,
-            style: TextStyle(
-                fontWeight: FontWeight.bold, color: Color(0xFFBBC2CF)),
-          ),
-        ));
-  }
-
   Widget _buildHeadingText(text) {
     return Align(
       alignment: Alignment.centerLeft,
@@ -304,56 +334,71 @@ class ContactDataScreenState extends State<ContactDataScreen> {
           if (!_formKey.currentState.validate()) {
             return;
           }
-
           _formKey.currentState.save();
-          print(_name);
-          print(_email);
-          print(_phoneNumber);
-          print(_street);
-          print(_city);
-          print(_zipcode);
+          addCustomer(_name, _email, _phoneNumber, _street, _city, _zipcode);
         });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: null,
-        body: ListView(
-            scrollDirection: Axis.vertical,
-            padding: const EdgeInsets.all(20.0),
-            children: [
-              Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(height: 30),
-                    _buildHeadingText('Contact Details'),
-                    SizedBox(height: 20),
-                    _buildDataHint(),
-                    SizedBox(height: 20),
-                    _buildNameField(),
-                    SizedBox(height: 20),
-                    //_buildInputLabel('E-Mail'),
-                    _buildEmailField(),
-                    SizedBox(height: 20),
-                    //_buildInputLabel('Phone'),
-                    _buildPhoneNumberField(),
-                    SizedBox(height: 20),
-                    //_buildInputLabel('Street'),
-                    _buildStreetField(),
-                    SizedBox(height: 20),
-                    //_buildInputLabel('City'),
-                    _buildCityField(),
-                    SizedBox(height: 20),
-                    //_buildInputLabel('Zipcode'),
-                    _buildZipcodeField(),
-                    SizedBox(height: 30),
-                    _buildSaveButton(),
-                  ],
-                ),
+    return FutureBuilder(
+      // Initialize FlutterFire:
+      future: _initialization,
+      builder: (context, snapshot) {
+        // Check for errors
+        if (snapshot.hasError) {
+          print('Something went wrong');
+          return null;
+        }
+
+        // Once complete, show application
+        if (snapshot.connectionState == ConnectionState.done) {
+          return Scaffold(
+            appBar: null,
+            body: ListView(
+                scrollDirection: Axis.vertical,
+                padding: const EdgeInsets.all(20.0),
+                children: [
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(height: 30),
+                        _buildHeadingText('Contact Details'),
+                        SizedBox(height: 20),
+                        _buildDataHint(),
+                        SizedBox(height: 20),
+                        _buildNameField(),
+                        SizedBox(height: 20),
+                        //_buildInputLabel('E-Mail'),
+                        _buildEmailField(),
+                        SizedBox(height: 20),
+                        //_buildInputLabel('Phone'),
+                        _buildPhoneNumberField(),
+                        SizedBox(height: 20),
+                        //_buildInputLabel('Street'),
+                        _buildStreetField(),
+                        SizedBox(height: 20),
+                        //_buildInputLabel('City'),
+                        _buildCityField(),
+                        SizedBox(height: 20),
+                        //_buildInputLabel('Zipcode'),
+                        _buildZipcodeField(),
+                        SizedBox(height: 30),
+                        _buildSaveButton(),
+                      ],
+                    ),
+                  )
+                ]
               )
-            ]));
+            );
+        }
+
+        // Otherwise, show something whilst waiting for initialization to complete
+        print('Loading ...');
+        return null;
+
+      });
   }
 }

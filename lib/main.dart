@@ -2,7 +2,7 @@ import 'package:coronacontacts/contactdata_screen.dart';
 import 'package:coronacontacts/transmitdata_screen.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
   runApp(MyApp());
 }
 
