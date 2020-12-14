@@ -29,12 +29,16 @@ class TransmitDataScreenState extends State<TransmitDataScreen> {
 
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-  Future<void> addVisit(customer, locality) {
+  Future<void> addVisit(customer, locality) async {
   // Call the user's CollectionReference to add a new user
+
+    DocumentReference customerRef = await FirebaseFirestore.instance.doc('customers/' + customer);
+    DocumentReference localityRef = await FirebaseFirestore.instance.doc('localities/' + locality);
+
     return visits
       .add({
-        'customer': '/customers/' + customer, 
-        'locality': '/localities/' + locality, 
+        'customer': customerRef, 
+        'locality': localityRef, 
         'time_entry': DateTime.now().millisecondsSinceEpoch
       })
       .then((value) => print("Visit added" ))
