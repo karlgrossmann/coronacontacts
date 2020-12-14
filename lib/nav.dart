@@ -1,5 +1,8 @@
 //Bottom Navigation Bar
 
+import 'package:coronacontacts/dataformscreen.dart';
+import 'package:coronacontacts/searchscreen.dart';
+import 'package:coronacontacts/transmitscreen.dart';
 import 'package:flutter/material.dart';
 
 class Nav extends StatefulWidget {
@@ -10,8 +13,10 @@ class Nav extends StatefulWidget {
 class _NavState extends State<Nav> {
   int _selectedIndex = 0;
   List<Widget> _widgetOptions = <Widget>[
-    Text('Home'),
-    Text('Contact'),
+    DataFormScreen(),
+    TransmitScreen(),
+    //Text('Home'),
+    //Text('Contact'),
     Text('Navigation'),
     Text('Search'),
     Text('Location'),
@@ -31,6 +36,7 @@ class _NavState extends State<Nav> {
       ),
       body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           //5 Icons
           BottomNavigationBarItem(
