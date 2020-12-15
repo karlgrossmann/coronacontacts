@@ -116,6 +116,13 @@ class TransmitDataScreenState extends State<TransmitDataScreen> {
         onPressed: _scan);
   }
 
+  Widget _buildLoadingSpinner() {
+    return CircularProgressIndicator(
+      value: null,
+      backgroundColor: Colors.grey,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -130,9 +137,7 @@ class TransmitDataScreenState extends State<TransmitDataScreen> {
 
         // Once complete, show application
         if (snapshot.connectionState == ConnectionState.done) {
-          return Scaffold(
-            appBar: null,
-            body: Container(
+          return Container(
                 margin: EdgeInsets.all(24),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -146,12 +151,11 @@ class TransmitDataScreenState extends State<TransmitDataScreen> {
                     SizedBox(height: 50),
                     _buildSaveButton()
                   ],
-            )));
+            ));
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
-        print('Loading ...');
-        return null;
+        return _buildLoadingSpinner();
   });
 }
 }

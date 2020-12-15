@@ -339,6 +339,13 @@ class ContactDataScreenState extends State<ContactDataScreen> {
         });
   }
 
+  Widget _buildLoadingSpinner() {
+    return CircularProgressIndicator(
+      value: null,
+      backgroundColor: Colors.grey,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -353,9 +360,8 @@ class ContactDataScreenState extends State<ContactDataScreen> {
 
         // Once complete, show application
         if (snapshot.connectionState == ConnectionState.done) {
-          return Scaffold(
-            appBar: null,
-            body: ListView(
+          return Container(
+            child: ListView(
                 scrollDirection: Axis.vertical,
                 padding: const EdgeInsets.all(20.0),
                 children: [
@@ -396,8 +402,7 @@ class ContactDataScreenState extends State<ContactDataScreen> {
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
-        print('Loading ...');
-        return null;
+        return _buildLoadingSpinner();
 
       });
   }
