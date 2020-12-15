@@ -20,7 +20,7 @@ class TransmitScreenState extends State<TransmitScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Scan Demo')),
+        appBar: null,
         body: Container(
             margin: EdgeInsets.all(24),
             child: Column(
