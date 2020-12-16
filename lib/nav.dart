@@ -15,10 +15,8 @@ class _NavState extends State<Nav> {
   List<Widget> _widgetOptions = <Widget>[
     DataFormScreen(),
     TransmitScreen(),
-    //Text('Home'),
-    //Text('Contact'),
     Text('Navigation'),
-    Text('Search'),
+    SearchScreen(),
     Text('Location'),
   ];
 
@@ -40,7 +38,7 @@ class _NavState extends State<Nav> {
         items: const <BottomNavigationBarItem>[
           //5 Icons
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
             title: Text(''),
           ),
           BottomNavigationBarItem(
@@ -56,7 +54,7 @@ class _NavState extends State<Nav> {
             title: Text(''),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add_location_outlined),
+            icon: Icon(Icons.place_outlined),
             title: Text(''),
           ),
         ],
