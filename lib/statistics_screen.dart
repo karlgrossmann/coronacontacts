@@ -39,12 +39,18 @@ class StatisticsScreenState extends State<StatisticsScreen> {
   }
 
   Widget _buildTopStatistic(infected, recovered, deaths) {
-    return Row(
-      children: [
-        Expanded(child: _buildTopStatisticContainer('Infected', infected, Color(0xFFFFAA22), 'lol')),
-        SizedBox(width: 10),
-        Expanded(child: _buildTopStatisticContainer('Recovered', recovered, Color(0xFF66BB66), 'lol')),
-      ],
+    return Container(
+      height: 200, 
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: [
+            _buildTopStatisticContainer('Infected', infected, Color(0xFFFFAA22), Icons.privacy_tip),
+            SizedBox(width: 10),
+            _buildTopStatisticContainer('Recovered', recovered, Color(0xFF66BB66), Icons.sentiment_satisfied),
+            SizedBox(width: 10),
+            _buildTopStatisticContainer('Death', recovered, Color(0xFFEE4444), Icons.airline_seat_flat),
+          ],
+        )
     );
   }
 
@@ -90,13 +96,20 @@ class StatisticsScreenState extends State<StatisticsScreen> {
         border: Border.all(color: color),
         borderRadius: new BorderRadius.all(Radius.circular(50.0)),
       ),
-      child: Center(child: Text(icon))
+      child: Center(
+        child: Icon(
+          icon,
+          color: color,
+          size: 24.0,
+    ),
+      )
     );
   }
 
   Widget _buildTopStatisticContainer(text, number, color, icon) {
     return Container(
-      height: 200,
+      margin: EdgeInsets.only(bottom: 5),
+      width: 150,
       child: Column(
         children: [
           SizedBox(height: 30),

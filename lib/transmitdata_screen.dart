@@ -4,6 +4,7 @@ import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flare_flutter/flare_actor.dart';
 
 
 class TransmitDataScreen extends StatefulWidget {
@@ -41,7 +42,7 @@ class TransmitDataScreenState extends State<TransmitDataScreen> {
         'locality': localityRef, 
         'time_entry': DateTime.now().millisecondsSinceEpoch
       })
-      .then((value) => print("Visit added" ))
+      .then((value) => _showSuccess())
       .catchError((error) => print("Failed to add visit: $error"));
   }
 
@@ -97,8 +98,7 @@ class TransmitDataScreenState extends State<TransmitDataScreen> {
     return Container(
       child: Image(
         height: 250,
-        image: NetworkImage('https://i.ibb.co/XyVqkQN/frame-1.png'),
-      )
+        image: AssetImage('assets/qrcode.png')),
     );
   }
 
@@ -120,6 +120,12 @@ class TransmitDataScreenState extends State<TransmitDataScreen> {
     return CircularProgressIndicator(
       value: null,
       backgroundColor: Colors.grey,
+    );
+  }
+
+  Future _showSuccess() async {
+    await Scaffold.of(context).showSnackBar(
+      SnackBar(content: Text('Visit successfully stored!'),)
     );
   }
 
