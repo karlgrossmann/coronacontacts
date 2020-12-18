@@ -8,28 +8,20 @@ class SearchScreen extends StatefulWidget {
 }
 
 class SearchScreenState extends State<SearchScreen> {
-  Widget _buildSaveButton() {
-    return RaisedButton(
-        child: Text(
-      'Restaurants',
-      style: TextStyle(color: Colors.white, fontSize: 16),
-    ));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Restaurant')),
-        body: new SizedBox(
-          width: 400.0,
-          height: 85.0,
-          child: new RaisedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text('Restaurant 1'),
-            color: Colors.white,
-          ),
-        ));
+      body: ListView.builder(
+          itemCount: null, //count restaurants
+          itemBuilder: (context, index) {
+            //
+            return Card(
+              child: ListTile(
+                onTap: () {},
+                title: Text('Da Vino'), //restaurants name
+              ),
+            );
+          }),
+    );
   }
 }

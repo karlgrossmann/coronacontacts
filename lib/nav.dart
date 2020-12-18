@@ -1,8 +1,6 @@
 //Bottom Navigation Bar
 
-import 'package:coronacontacts/dataformscreen.dart';
 import 'package:coronacontacts/searchscreen.dart';
-import 'package:coronacontacts/transmitscreen.dart';
 import 'package:flutter/material.dart';
 
 class Nav extends StatefulWidget {
@@ -13,28 +11,22 @@ class Nav extends StatefulWidget {
 class _NavState extends State<Nav> {
   int _selectedIndex = 0;
   List<Widget> _widgetOptions = <Widget>[
-    DataFormScreen(),
-    TransmitScreen(),
-    Text('Navigation'),
-    SearchScreen(),
-    Text('Location'),
+    Text('Home'),
+    Text('Home'),
+    Text('Home'),
+    Text('FickDICH'),
+    Text('Home')
   ];
-
-  void _onItemTap(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Corona Contacts'),
-      ),
+      appBar: null,
       body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         items: const <BottomNavigationBarItem>[
           //5 Icons
           BottomNavigationBarItem(
@@ -59,7 +51,6 @@ class _NavState extends State<Nav> {
           ),
         ],
         currentIndex: _selectedIndex,
-        onTap: _onItemTap,
       ),
     );
   }
