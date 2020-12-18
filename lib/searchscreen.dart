@@ -14,11 +14,17 @@ class SearchScreenState extends State<SearchScreen> {
       body: ListView.builder(
           itemCount: null, //count restaurants
           itemBuilder: (context, index) {
-            //
-            return Card(
-              child: ListTile(
-                onTap: () {},
-                title: Text('Da Vino'), //restaurants name
+            return Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
+              child: Container(
+                child: ListTile(
+                  onTap: () {}, //definition what happens when click on it
+                  title: Text('Da Vino'), //restaurants name
+                  leading: CircleAvatar(
+                    backgroundImage: AssetImage('Pfad'), //image path
+                  ),
+                ),
               ),
             );
           }),
