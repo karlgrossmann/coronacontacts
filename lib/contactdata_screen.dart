@@ -44,7 +44,7 @@ class ContactDataScreenState extends State<ContactDataScreen> {
   }
 
   Future<void> addCustomer(fullName, email, phone, street, city, zipcode) {
-  // Call the user's CollectionReference to add a new user
+    // Call the customers's CollectionReference to add a new customer
     return customers
       .add({
         'name': fullName, 
@@ -56,6 +56,33 @@ class ContactDataScreenState extends State<ContactDataScreen> {
       })
       .then((value) => _saveId(value.id))
       .catchError((error) => print("Failed to add customer: $error"));
+  }
+
+  Future<void> updateCustomer(id, fullName, email, phone, street, city, zipcode) {
+    // Call the customer's CollectionmReference to update customer
+    return customers
+      .doc(id)
+      .update({
+        'name': fullName, 
+        'email': email, 
+        'phone': phone,
+        'street': street,
+        'city': city,
+        'zipcode': zipcode
+      })
+      .then((value) => print('Updated customer successfully.'))
+      .catchError((error) => print('Failed to update customer: $error'));
+  }
+
+  Future _callCustomerDoc(fullName, email, phone, street, city, zipcode) async {
+    final SharedPreferences prefs = await _prefs;
+    final id = prefs.getString('customerId') ?? 0;
+
+    if(id == 0){
+      addCustomer(fullName, email, phone, street, city, zipcode);
+    } else {
+      updateCustomer(id, fullName, email, phone, street, city, zipcode);
+    }
   }
 
   /*===== BUILD ITEMS =======*/
@@ -335,7 +362,7 @@ class ContactDataScreenState extends State<ContactDataScreen> {
             return;
           }
           _formKey.currentState.save();
-          addCustomer(_name, _email, _phoneNumber, _street, _city, _zipcode);
+          _callCustomerDoc(_name, _email, _phoneNumber, _street, _city, _zipcode);
         });
   }
 
