@@ -40,23 +40,19 @@ class _NavState extends State<Nav> {
           //5 Icons
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text(''),
+            label: 'Main',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.create_outlined),
-            title: Text(''),
+            label: 'Edit',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.navigation),
-            title: Text(''),
+            label: 'Send',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
-            title: Text(''),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add_location_outlined),
-            title: Text(''),
+            label: 'Search',
           ),
         ],
         currentIndex: _selectedIndex,

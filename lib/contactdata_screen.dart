@@ -43,6 +43,23 @@ class ContactDataScreenState extends State<ContactDataScreen> {
     print('Customers hash successfully stored.');
   }
 
+  Future<void> _initCustomer() async {
+
+    final SharedPreferences prefs = await _prefs;
+    final id = prefs.getString('customerId') ?? 0;
+
+    if (id != 0) {
+      DocumentSnapshot document = await customers.doc(id).get();
+
+      _name = document['name'];
+      _email = document['email'];
+      _phoneNumber = document['phone'];
+      _street = document['street'];
+      _city = document['city'];
+      _zipcode = document['zipcode'];
+    } 
+  }
+
   Future<void> addCustomer(fullName, email, phone, street, city, zipcode) {
     // Call the customers's CollectionReference to add a new customer
     return customers
@@ -55,7 +72,8 @@ class ContactDataScreenState extends State<ContactDataScreen> {
         'zipcode': zipcode
       })
       .then((value) => _saveId(value.id))
-      .catchError((error) => print("Failed to add customer: $error"));
+      .catchError((error) => print("Failed to add customer: $error")
+    );
   }
 
   Future<void> updateCustomer(id, fullName, email, phone, street, city, zipcode) {
@@ -71,7 +89,8 @@ class ContactDataScreenState extends State<ContactDataScreen> {
         'zipcode': zipcode
       })
       .then((value) => print('Updated customer successfully.'))
-      .catchError((error) => print('Failed to update customer: $error'));
+      .catchError((error) => print('Failed to update customer: $error')
+    );
   }
 
   Future _callCustomerDoc(fullName, email, phone, street, city, zipcode) async {
@@ -89,6 +108,7 @@ class ContactDataScreenState extends State<ContactDataScreen> {
 
   Widget _buildNameField() {
     return TextFormField(
+      initialValue: _name,
       style: TextStyle(
           color: Color(0xFF1B1A22),
           fontWeight: FontWeight.bold,
@@ -125,6 +145,7 @@ class ContactDataScreenState extends State<ContactDataScreen> {
 
   Widget _buildEmailField() {
     return TextFormField(
+      initialValue: _email,
       style: TextStyle(
           color: Color(0xFF1B1A22),
           fontWeight: FontWeight.bold,
@@ -168,6 +189,7 @@ class ContactDataScreenState extends State<ContactDataScreen> {
 
   Widget _buildPhoneNumberField() {
     return TextFormField(
+      initialValue: _phoneNumber,
       style: TextStyle(
           color: Color(0xFF1B1A22),
           fontWeight: FontWeight.bold,
@@ -210,6 +232,7 @@ class ContactDataScreenState extends State<ContactDataScreen> {
 
   Widget _buildStreetField() {
     return TextFormField(
+      initialValue: _street,
       style: TextStyle(
           color: Color(0xFF1B1A22),
           fontWeight: FontWeight.bold,
@@ -246,6 +269,7 @@ class ContactDataScreenState extends State<ContactDataScreen> {
 
   Widget _buildCityField() {
     return TextFormField(
+      initialValue: _city,
       style: TextStyle(
           color: Color(0xFF1B1A22),
           fontWeight: FontWeight.bold,
@@ -283,6 +307,7 @@ class ContactDataScreenState extends State<ContactDataScreen> {
 
   Widget _buildZipcodeField() {
     return TextFormField(
+      initialValue: _zipcode,
       style: TextStyle(
           color: Color(0xFF1B1A22),
           fontWeight: FontWeight.bold,
@@ -377,7 +402,7 @@ class ContactDataScreenState extends State<ContactDataScreen> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       // Initialize FlutterFire:
-      future: _initialization,
+      future: Future.wait([_initialization, _initCustomer()]),
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
@@ -404,20 +429,19 @@ class ContactDataScreenState extends State<ContactDataScreen> {
                         SizedBox(height: 20),
                         _buildNameField(),
                         SizedBox(height: 20),
-                        //_buildInputLabel('E-Mail'),
                         _buildEmailField(),
                         SizedBox(height: 20),
-                        //_buildInputLabel('Phone'),
                         _buildPhoneNumberField(),
                         SizedBox(height: 20),
-                        //_buildInputLabel('Street'),
                         _buildStreetField(),
                         SizedBox(height: 20),
-                        //_buildInputLabel('City'),
-                        _buildCityField(),
-                        SizedBox(height: 20),
-                        //_buildInputLabel('Zipcode'),
-                        _buildZipcodeField(),
+                        Row(
+                          children: <Widget>[
+                            Expanded(child: _buildCityField(),),
+                            SizedBox(width: 10,),
+                            Expanded(child: _buildZipcodeField(),),
+                          ],
+                        ),
                         SizedBox(height: 30),
                         _buildSaveButton(),
                       ],
