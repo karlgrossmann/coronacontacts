@@ -1,8 +1,10 @@
-import 'package:coronacontacts/data_classes/CovidCountryData.dart';
+import 'package:coronacontacts/models/CovidCountryData.dart';
+import 'package:coronacontacts/models/WorldCovidDataModel.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:intl/intl.dart';
+import 'package:flag/flag.dart';
+import 'package:coronacontacts/services/api_manager.dart';
+import 'package:coronacontacts/constants/maps.dart';
 
 
 class StatisticsScreen extends StatefulWidget {
@@ -26,30 +28,15 @@ class StatisticsScreenState extends State<StatisticsScreen> {
     }
   }
 
-  Future<CovidCountryData> futureCovidCountryData;
+  Future<CovidCountryData> _covidGermanyData;
+  Future<List<WorldCovidDataModel>> _covidWorldData;
 
   @override
   void initState() {
     super.initState();
-    futureCovidCountryData = fetchCountryData();
+    _covidGermanyData = ApiManager().fetchCountryData();
+    _covidWorldData = ApiManager().fetchWorldData();
   }
-
-  /*===== BACKEND FUNCTIONS ======*/
-
-  Future<CovidCountryData> fetchCountryData() async {
-    final response = await http.get('https://rki.marlon-lueckert.de/api/general');
-
-    if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      return CovidCountryData.fromJson(jsonDecode(response.body));
-    } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to load covid country data.');
-    }
-  }
-
 
   /*===== BUILD ITEMS =======*/
 
@@ -98,7 +85,7 @@ class StatisticsScreenState extends State<StatisticsScreen> {
     );
   }
 
-  _buildColouredNumber(number, color){
+  Widget _buildColouredNumber(number, color){
     return Text(
       numberFormatter.format(number),
       style: TextStyle(
@@ -109,11 +96,10 @@ class StatisticsScreenState extends State<StatisticsScreen> {
     );
   }
 
-  _buildDifferenceNumber(number, color){
+  Widget _buildDifferenceNumber(number, color){
     return Container(
       decoration: new BoxDecoration(
         color: color.withOpacity(0.2),
-        //border: Border.all(color: color),
         borderRadius: new BorderRadius.all(Radius.circular(50.0)),
       ),
       child: Padding(padding: EdgeInsets.only(bottom: 3, top: 3, left: 10, right: 10), child: Text(
@@ -126,7 +112,7 @@ class StatisticsScreenState extends State<StatisticsScreen> {
     ));
   }
 
-  _buildUppercaseHeading(text, fontsize){
+  Widget _buildUppercaseHeading(text, fontsize){
     return Text(
       text.toUpperCase(),
       style: TextStyle(
@@ -138,7 +124,7 @@ class StatisticsScreenState extends State<StatisticsScreen> {
     );
   }
 
-    _buildBlueThinText(text, fontsize){
+  Widget _buildBlueThinText(text, fontsize){
     return Text(
       text,
       style: TextStyle(
@@ -148,7 +134,7 @@ class StatisticsScreenState extends State<StatisticsScreen> {
     );
   }
 
-  _buildCircledIcon(color, icon){
+  Widget _buildCircledIcon(color, icon){
     return Container(
       height: 30,
       width: 30,
@@ -238,10 +224,86 @@ class StatisticsScreenState extends State<StatisticsScreen> {
     );
   }
 
+  /* SETZ ICH GLEICH UM */
+
+  Widget _buildStatisticTableContainer(country, active, critical, cases, deaths, recoveries) {
+    return Container(
+      padding: EdgeInsets.only(top: 15, bottom: 15, left: 5, right: 5),
+      decoration: new BoxDecoration(
+        color: Colors.white,
+        borderRadius: new BorderRadius.all(Radius.circular(8.0)),
+      ),
+      child: Row(children: [
+        Expanded(child: Flag(country, height: 25, width: 25)),
+        Expanded(child: _buildStatisticTableCell('Active', active, Color(0xFFFFAA22))),
+        Expanded(child: _buildStatisticTableCell('Critical', critical, Colors.blue)),
+        Expanded(child: _buildStatisticTableCell('Cases', cases, Color(0xFF991AC7))),
+        Expanded(child: _buildStatisticTableCell('Deaths', deaths, Color(0xFFEE4444))),
+      ],)
+    );
+  }
+
+  Widget _buildStatisticTableCell(description, number, color){
+    return Column(children: [
+      _buildColouredText(NumberFormat.compact().format(number), color),
+      SizedBox(height: 5),
+      _buildSmallDescription(description)
+    ]);
+  }
+
+  Widget _buildSmallDescription(description) {
+    return Text(
+      description,
+      style: TextStyle(
+        fontSize: 12,
+        color: Colors.grey,
+      ),
+    );
+  }
+
+  Widget _buildColouredText(text, color){
+    return Text(
+      text,
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 17,
+        color: color,
+      ),
+    );
+  }
+
+  Widget _buildStatisticTable() {
+    return FutureBuilder<List<WorldCovidDataModel>>(
+      future: _covidWorldData,
+      builder: (context, snapshot) {
+        if (snapshot.hasData){
+          return SizedBox(height: 390, child: ListView.builder(
+            primary: false,
+            itemCount: 15,
+            itemBuilder: (context, index) {
+              var country = snapshot.data[index+1];
+              if (country.recovered == null || country.active == null) {
+                return SizedBox(height: 0);
+              } else {
+                return Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: _buildStatisticTableContainer(Maps().countryName_to_Code[country.country], country.active, country.critical, country.cases, country.deaths, country.recovered),
+              );
+              }
+            }
+          ));
+        } else {
+          return _buildLoadingSpinner();
+        }
+      },
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: futureCovidCountryData,
+      future: _covidGermanyData,
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
@@ -252,24 +314,27 @@ class StatisticsScreenState extends State<StatisticsScreen> {
         // Once complete, show application
         if (snapshot.connectionState == ConnectionState.done) {
           return Container(
+            padding: const EdgeInsets.all(24.0),
             child: ListView(
-              scrollDirection: Axis.vertical,
-              padding: const EdgeInsets.all(24.0),
               children: [
-                SizedBox(height: 50),
+                SizedBox(height: 2),
                 _buildHeadingText('Daily Update', 30.0),
                 SizedBox(height: 10),
                 _buildDayText(snapshot.data.lastUpdate),
                 SizedBox(height: 40),
                 _buildHeadingText('Germany', 18.0),
                 SizedBox(height: 30),
-                //_buildTopStatistic(snapshot.data.cases, snapshot.data.recovered, snapshot.data.deaths),
                 // infected, differenceInfected, recovered, differenceRecovered, deaths, differenceDeaths
                 _buildTopStatistic(snapshot.data.cases, snapshot.data.differenceCases, snapshot.data.recovered, snapshot.data.differenceRecovered, snapshot.data.deaths, snapshot.data.differenceDeaths),
                 SizedBox(height: 10),
                 _buildSecondStatistic(),
                 SizedBox(height: 30),
                 _buildHeadingText('Most Infected Countries', 18.0),
+                SizedBox(height: 20),
+                _buildStatisticTable()
+                //_buildStatisticTableContainer('AU', 22195067, 106025, 82439369, 1799337, 58444965),
+                //SizedBox(height: 5),
+                //_buildStatisticTableContainer('US', 7786653, 29132, 19977704, 346579, 11844472),
               ],
             )
           );
