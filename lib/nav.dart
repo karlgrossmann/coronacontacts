@@ -1,6 +1,7 @@
 //Bottom Navigation Bar
 
 import 'package:coronacontacts/contactdata_screen.dart';
+import 'package:coronacontacts/restaurant_screen.dart';
 import 'package:coronacontacts/transmitdata_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -15,9 +16,7 @@ class _NavState extends State<Nav> {
     Text('Home'),
     ContactDataScreen(),
     TransmitDataScreen(),
-    //Text('Home'),
-    //Text('Contact'),
-    Text('Search'),
+    RestaurantScreen(),
     Text('Location'),
   ];
 
