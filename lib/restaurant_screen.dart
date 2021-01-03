@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:coronacontacts/restaurantsDataTest.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class RestaurantScreen extends StatefulWidget {
   @override
@@ -31,17 +32,37 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Image.asset(
-                  "assets/images/${post["image"]}",
-                  height: double.infinity,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.asset(
+                    "assets/images/${post["image"]}",
+                    height: 220,
+                    width: 125,
+                  ),
                 ),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  //crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
                       post["name"],
                       style: const TextStyle(
-                          fontSize: 28, fontWeight: FontWeight.bold),
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    RatingBar.builder(
+                      initialRating: 3, //rating from data bank
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+                      itemSize: 20,
+                      itemBuilder: (context, _) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      onRatingUpdate: (rating) {
+                        print(rating);
+                      },
                     ),
                     Text(
                       post["brand"],
