@@ -1,10 +1,11 @@
-import 'package:coronacontacts/models/CovidCountryData.dart';
-import 'package:coronacontacts/models/WorldCovidDataModel.dart';
+import 'package:coronacontacts/models/covid_country_data_model.dart';
+import 'package:coronacontacts/models/world_covid_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flag/flag.dart';
 import 'package:coronacontacts/services/api_manager.dart';
 import 'package:coronacontacts/constants/maps.dart';
+import 'package:coronacontacts/views/widgets/line_chart.dart';
 
 
 class StatisticsScreen extends StatefulWidget {
@@ -199,7 +200,8 @@ class StatisticsScreenState extends State<StatisticsScreen> {
         children: [
           Align( alignment: Alignment.centerLeft, child: _buildUppercaseHeading('LAST 7 DAYS', 14.0)),
           SizedBox(height: 5),
-          Align( alignment: Alignment.centerLeft, child: _buildBlueThinText('+20.000 new cases', 25.0)),
+          //Align( alignment: Alignment.centerLeft, child: _buildBlueThinText('+20.000 new cases', 25.0)),
+          SizedBox(height: 130, width: 280, child: PointsLineChart.withSampleData()),
         ],
       ),
       decoration: new BoxDecoration(
@@ -224,7 +226,6 @@ class StatisticsScreenState extends State<StatisticsScreen> {
     );
   }
 
-  /* SETZ ICH GLEICH UM */
 
   Widget _buildStatisticTableContainer(country, active, critical, cases, deaths, recoveries) {
     return Container(

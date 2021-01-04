@@ -2,7 +2,7 @@
 
 import 'package:coronacontacts/contactdata_screen.dart';
 import 'package:coronacontacts/transmitdata_screen.dart';
-import 'package:coronacontacts/statistics_screen.dart';
+import 'package:coronacontacts/views/statistics_screen.dart';
 import 'package:flutter/material.dart';
 
 class Nav extends StatefulWidget {

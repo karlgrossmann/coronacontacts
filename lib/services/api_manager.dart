@@ -1,5 +1,5 @@
-import 'package:coronacontacts/models/CovidCountryData.dart';
-import 'package:coronacontacts/models/WorldCovidDataModel.dart';
+import 'package:coronacontacts/models/covid_country_data_model.dart';
+import 'package:coronacontacts/models/world_covid_data_model.dart';
 import 'package:coronacontacts/constants/strings.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
