@@ -15,7 +15,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
   List<Widget> itemsData = [];
 
   void getPostsData() {
-    List<dynamic> responseList = RESTAURANT_DATA; //data basis
+    List<dynamic> responseList = RESTAURANT_DATA; //database
     List<Widget> listItems = [];
     responseList.forEach((post) {
       listItems.add(Container(
@@ -32,19 +32,11 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image.asset(
-                    "assets/images/${post["image"]}",
-                    height: 220,
-                    width: 125,
-                  ),
-                ),
                 Column(
-                  //crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      post["name"],
+                      post["name"], //Restaurant name
                       style: const TextStyle(
                           fontSize: 20, fontWeight: FontWeight.bold),
                     ),
@@ -65,14 +57,28 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                       },
                     ),
                     Text(
-                      post["brand"],
+                      post["brand"], //Restaurant type
                       style: const TextStyle(fontSize: 17, color: Colors.grey),
                     ),
+                    //LinearProgressIndicator(
+                    //value: 30,
+                    //backgroundColor: Colors.amber,
+                    //valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                    //minHeight: 10,
+                    //),
                     SizedBox(
                       height: 10,
                     ),
                   ],
                 ),
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(12.0),
+                    child: Image.asset(
+                      "assets/images/${post["image"]}", //Restaurant photo
+                      height: 200,
+                      width: 125,
+                      fit: BoxFit.fill,
+                    ))
               ],
             ),
           )));
