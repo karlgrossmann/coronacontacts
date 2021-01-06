@@ -2,6 +2,7 @@
 
 import 'package:coronacontacts/contactdata_screen.dart';
 import 'package:coronacontacts/transmitdata_screen.dart';
+import 'package:coronacontacts/views/statistics_screen.dart';
 import 'package:flutter/material.dart';
 
 class Nav extends StatefulWidget {
@@ -12,7 +13,7 @@ class Nav extends StatefulWidget {
 class _NavState extends State<Nav> {
   int _selectedIndex = 0;
   List<Widget> _widgetOptions = <Widget>[
-    Text('Home'),
+    StatisticsScreen(),
     ContactDataScreen(),
     TransmitDataScreen(),
     //Text('Home'),
