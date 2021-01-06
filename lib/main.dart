@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:coronacontacts/nav.dart';
+import 'package:coronacontacts/views/widgets/nav.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {

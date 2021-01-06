@@ -4,7 +4,6 @@ import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flare_flutter/flare_actor.dart';
 
 
 class TransmitDataScreen extends StatefulWidget {
@@ -30,8 +29,8 @@ class TransmitDataScreenState extends State<TransmitDataScreen> {
 
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-  Future<void> addVisit(customer, locality) async {
-  // Call the user's CollectionReference to add a new user
+  _addVisit(customer, locality) async {
+    _storeVisit(locality);
 
     DocumentReference customerRef = await FirebaseFirestore.instance.doc('customers/' + customer);
     DocumentReference localityRef = await FirebaseFirestore.instance.doc('localities/' + locality);
@@ -43,24 +42,49 @@ class TransmitDataScreenState extends State<TransmitDataScreen> {
         'time_entry': DateTime.now().millisecondsSinceEpoch
       })
       .then((value) => _showSuccess())
-      .catchError((error) => print("Failed to add visit: $error"));
+      .catchError((error) => _showFailure("Failed to add visit: $error"));
+  }
+
+  Future<void> addVisit(customer, locality) async {
+  // Call the user's CollectionReference to add a new user
+
+    final SharedPreferences prefs = await _prefs;
+    final localityId = prefs.getString('localityId') ?? 0;
+    final lastVisitTime = prefs.getInt('lastVisitTime') ?? 0;
+
+    if (localityId != locality) {
+      _addVisit(customer, locality);
+    } else if ((lastVisitTime + 3600000) <= DateTime.now().millisecondsSinceEpoch) {
+      _addVisit(customer, locality);
+    } else {
+      _showFailure('Please wait an hour to scan the same code again.');
+    }
+  }
+
+  Future<void> _storeVisit(locality) async {
+    final SharedPreferences prefs = await _prefs;
+    
+    prefs.setString('localityId', locality);
+    prefs.setInt('lastVisitTime', DateTime.now().millisecondsSinceEpoch);
   }
 
   Future _scan() async {
     await Permission.camera.request();
     String barcode = await scanner.scan();
     if (barcode == null) {
-      print('No return from barcode scanner.');
+      _showFailure('There was an error with scanning.');
     } else {
       _id = barcode;
 
       final SharedPreferences prefs = await _prefs;
       final id = prefs.getString('customerId') ?? 0;
-      print('Customers hash successfully loaded.');
-      _customerId = id;
+      if (id == 0) {
+        _showFailure('Please leave your details first.');
+      } else {
+        _customerId = id;
 
-      addVisit(_id, _customerId);
-      print('Customer ' + _customerId + ' in locality ' + _id + ' transmitted.');
+        addVisit(_customerId, _id);
+      }
     }
   }
 
@@ -126,6 +150,12 @@ class TransmitDataScreenState extends State<TransmitDataScreen> {
   Future _showSuccess() async {
     await Scaffold.of(context).showSnackBar(
       SnackBar(content: Text('Visit successfully stored!'),)
+    );
+  }
+
+    Future _showFailure(description) async {
+    await Scaffold.of(context).showSnackBar(
+      SnackBar(content: Text(description),)
     );
   }
 

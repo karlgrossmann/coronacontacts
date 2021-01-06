@@ -1,7 +1,7 @@
 //Bottom Navigation Bar
 
-import 'package:coronacontacts/contactdata_screen.dart';
-import 'package:coronacontacts/transmitdata_screen.dart';
+import 'package:coronacontacts/views/contactdata_screen.dart';
+import 'package:coronacontacts/views/transmitdata_screen.dart';
 import 'package:coronacontacts/views/statistics_screen.dart';
 import 'package:flutter/material.dart';
 
