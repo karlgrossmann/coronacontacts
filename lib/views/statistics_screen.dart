@@ -125,16 +125,6 @@ class StatisticsScreenState extends State<StatisticsScreen> {
     );
   }
 
-  Widget _buildBlueThinText(text, fontsize){
-    return Text(
-      text,
-      style: TextStyle(
-        fontSize: fontsize,
-        color: Color(0xFF0213B5),
-      ),
-    );
-  }
-
   Widget _buildCircledIcon(color, icon){
     return Container(
       height: 30,

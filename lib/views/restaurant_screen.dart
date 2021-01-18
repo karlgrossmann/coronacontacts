@@ -14,52 +14,93 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
 
   List<Widget> itemsData = [];
 
+  Widget _buildHeadingText(text, size) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        text, 
+        style: TextStyle(
+          fontSize: size, 
+          color: Color(0xFF0213B5), 
+          fontWeight: FontWeight.bold
+        ),
+      ),
+    );
+  }
+
   void getPostsData() {
     List<dynamic> responseList = RESTAURANT_DATA; //database
     List<Widget> listItems = [];
     responseList.forEach((post) {
       listItems.add(Container(
           height: 150,
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 10),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
               color: Colors.white,
               boxShadow: [
-                BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 10.0),
+                BoxShadow(color: Colors.black.withAlpha(30), blurRadius: 6.0),
               ]),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12.0),
+                  child: Image.asset(
+                    "assets/images/${post["image"]}", //Restaurant photo
+                    height: 125,
+                    width: 125,
+                    fit: BoxFit.fill,
+                  )
+                ),
+                SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
                       post["name"], //Restaurant name
                       style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    RatingBar.builder(
-                      initialRating: 3, //rating from data bank
-                      minRating: 1,
-                      direction: Axis.horizontal,
-                      allowHalfRating: true,
-                      itemCount: 5,
-                      itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-                      itemSize: 20,
-                      itemBuilder: (context, _) => Icon(
-                        Icons.star,
-                        color: Colors.amber,
+                        fontSize: 18, fontWeight: FontWeight.bold
                       ),
-                      onRatingUpdate: (rating) {
-                        print(rating);
-                      },
+                      overflow: TextOverflow.ellipsis,
                     ),
+                    SizedBox(height: 10,),
+                    Row(
+                      children: [
+                        RatingBar.builder(
+                          initialRating: 3, //rating from data bank
+                          minRating: 1,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+                          itemSize: 16,
+                          itemBuilder: (context, _) => Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          onRatingUpdate: (rating) {
+                            print(rating);
+                          },
+                        ),
+                        SizedBox(width: 5,),
+                        Text(
+                          '(321)',
+                          style: const TextStyle(
+                            fontSize: 13,
+                            color: Colors.grey,
+                          )
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10,),
                     Text(
                       post["brand"], //Restaurant type
-                      style: const TextStyle(fontSize: 17, color: Colors.grey),
+                      style: const TextStyle(fontSize: 15, color: Colors.grey),
                     ),
+                    SizedBox(height: 10,),
                     //LinearProgressIndicator(
                     //value: 30,
                     //backgroundColor: Colors.amber,
@@ -71,14 +112,6 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                     ),
                   ],
                 ),
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(12.0),
-                    child: Image.asset(
-                      "assets/images/${post["image"]}", //Restaurant photo
-                      height: 200,
-                      width: 125,
-                      fit: BoxFit.fill,
-                    ))
               ],
             ),
           )));
@@ -108,58 +141,24 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          //header
-          elevation: 0,
-          backgroundColor: Colors.white,
-          leading: Icon(
-            Icons.menu,
-            color: Colors.black,
-          ),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.search, color: Colors.black),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(Icons.person, color: Colors.black),
-              onPressed: () {},
-            )
-          ],
-        ),
         body: Container(
+          padding: const EdgeInsets.all(20.0),
           height: size.height,
           child: Column(
             children: <Widget>[
-              const SizedBox(
-                height: 10,
-              ),
+              SizedBox(height: 2),
+              _buildHeadingText('Restaurant List', 30.0),
+              SizedBox(height: 25),
               Expanded(
                   child: ListView.builder(
                       controller: controller,
                       itemCount: itemsData.length,
                       physics: BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
-                        double scale = 1.0;
-                        if (topContainer > 0.5) {
-                          //if one container reaching this index the scale come and the new container begin to scroll
-                          scale = index + 0.5 - topContainer;
-                          if (scale < 0) {
-                            scale = 0;
-                          } else if (scale > 1) {
-                            scale = 1;
-                          }
-                        }
-                        return Opacity(
-                          //animation if scroll
-                          opacity: scale,
-                          child: Transform(
-                            transform: Matrix4.identity()..scale(scale, scale),
-                            alignment: Alignment.bottomCenter,
-                            child: Align(
-                                heightFactor: 0.7,
-                                alignment: Alignment.topCenter,
-                                child: itemsData[index]),
+                        return Container(
+                          child: Align(
+                            alignment: Alignment.topCenter,
+                            child: itemsData[index],
                           ),
                         );
                       })),
