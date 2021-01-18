@@ -23,6 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_rating_bar: ^3.0.1+1
   qrscan: ^0.2.21
   permission_handler: ^5.0.1+1
   firebase_core: ^0.5.3
@@ -50,7 +51,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/
-    - assets/flares/
+    - assets/images/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

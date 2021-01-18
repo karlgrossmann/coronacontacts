@@ -3,6 +3,7 @@
 import 'package:coronacontacts/views/contactdata_screen.dart';
 import 'package:coronacontacts/views/transmitdata_screen.dart';
 import 'package:coronacontacts/views/statistics_screen.dart';
+import 'package:coronacontacts/views/restaurant_screen.dart';
 import 'package:flutter/material.dart';
 
 class Nav extends StatefulWidget {
@@ -16,9 +17,7 @@ class _NavState extends State<Nav> {
     StatisticsScreen(),
     ContactDataScreen(),
     TransmitDataScreen(),
-    //Text('Home'),
-    //Text('Contact'),
-    Text('Search'),
+    RestaurantScreen(),
     Text('Location'),
   ];
 
