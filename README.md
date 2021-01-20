@@ -38,6 +38,7 @@
       <ul>
         <li><a href="#introduction">Introduction</a></li>
         <li><a href="#features">Features</a></li>
+        <li><a href="#impressions">Impressions</a></li>
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
@@ -71,6 +72,15 @@ Some information regarding the app will follow here.
 - Save your details once and leave them at any restaurant without any effort
 - Leave your details easily by scanning a QR code at a restaurant
 - See how full a restaurant in your area is
+
+### Impressions
+<p float="left">
+  <img src="https://user-images.githubusercontent.com/24880160/105188595-5c4e6280-5b34-11eb-9016-e3bb173eeff4.png" alt="Home Screen" height="350">
+  <img src="https://user-images.githubusercontent.com/24880160/105188712-7ab45e00-5b34-11eb-9f94-7f901f7885aa.png" alt="Home Screen" height="350">
+  <img src="https://user-images.githubusercontent.com/24880160/105188750-83a52f80-5b34-11eb-88e5-f05e9ffe96b4.png" alt="Home Screen" height="350">
+  <img src="https://user-images.githubusercontent.com/24880160/105188785-8d2e9780-5b34-11eb-8e21-a73532d0cbf3.png" alt="Home Screen" height="350">
+</p>
+
 
 ### Built With
 
