@@ -15,7 +15,7 @@
   <h3 align="center">Corona Contacts</h3>
 
   <p align="center">
-    This project is a Flutter app that allows users to provide their contact details to restaurants or bars by scanning a QR code. In addition, this app has features such as displaying current Corona statistics and showing free seats in participating restaurants. The project was developed in the scope of a study project.
+    This project is a Flutter app that allows users to provide their contact details to restaurants or bars by scanning a QR code. In addition, this app has features such as displaying current Corona statistics and showing free seats in participating restaurants. The project was developed in the scope of a study project and is not finished.
     <br />
     <a href="https://github.com/karlgrossmann/coronacontacts"><strong>Explore the docs »</strong></a>
     <br />
@@ -31,12 +31,14 @@
 
 
 <!-- TABLE OF CONTENTS -->
-<details open="open">
   <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#impressions">Impressions</a></li>
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
@@ -54,16 +56,30 @@
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
-</details>
-
 
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+### Introduction
+<p>
+  <img src="https://user-images.githubusercontent.com/24880160/105185101-6e2e0680-5b30-11eb-89a7-90382445537b.png" alt="Home Screen" height="400">
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+Some information regarding the app will follow here.
+</p>
 
-Here will be some description text of the app later on.
+### Features
+- Get up-to-date information about the Corona pandemic in your country
+- Save your details once and leave them at any restaurant without any effort
+- Leave your details easily by scanning a QR code at a restaurant
+- See how full a restaurant in your area is
+
+### Impressions
+<p float="left">
+  <img src="https://user-images.githubusercontent.com/24880160/105188595-5c4e6280-5b34-11eb-9016-e3bb173eeff4.png" alt="Home Screen" height="300">
+  <img src="https://user-images.githubusercontent.com/24880160/105188712-7ab45e00-5b34-11eb-9f94-7f901f7885aa.png" alt="Home Screen" height="300">
+  <img src="https://user-images.githubusercontent.com/24880160/105188750-83a52f80-5b34-11eb-88e5-f05e9ffe96b4.png" alt="Home Screen" height="300">
+  <img src="https://user-images.githubusercontent.com/24880160/105188785-8d2e9780-5b34-11eb-8e21-a73532d0cbf3.png" alt="Home Screen" height="300">
+</p>
 
 
 ### Built With
@@ -80,11 +96,7 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+For deploying the app you must install Flutter first. Therefore follow the instructions at the official [Flutter Installation Guide](https://flutter.dev/docs/get-started/install).
 
 ### Installation
 
