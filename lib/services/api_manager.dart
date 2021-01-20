@@ -1,4 +1,5 @@
 import 'package:coronacontacts/models/covid_country_data_model.dart';
+import 'package:coronacontacts/models/restaurant_data_model.dart';
 import 'package:coronacontacts/models/world_covid_data_model.dart';
 import 'package:coronacontacts/constants/strings.dart';
 import 'package:http/http.dart' as http;
@@ -36,5 +37,23 @@ class ApiManager {
     }
 
     return worldCovidDataModel;
+  }
+
+  Future<List<RestaurantData>> fetchRestaurantData() async {
+    var restaurantData = null;
+
+    try {
+      final response = await http.get(Strings.restaurant_api_url);
+
+      if (response.statusCode == 200) {
+        var jsonString = response.body;
+
+        restaurantData = restaurantDataFromJson(jsonString);
+      }
+      } catch (Exception) {
+        return restaurantData;
+      }
+
+    return restaurantData;
   }
 }
