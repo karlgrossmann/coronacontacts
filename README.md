@@ -154,11 +154,11 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Christian Goth - [LinkedIn](https://www.linkedin.com/in/christian-goth/)
+Christian Goth (Backend) - [LinkedIn](https://www.linkedin.com/in/christian-goth/)
 
-Karl Grossmann - [LinkedIn](https://linkedin.com/in/karlgrossmann)
+Karl Grossmann (Full-Stack) - [LinkedIn](https://linkedin.com/in/karlgrossmann)
 
-Miguel Gschrey - [LinkedIn](https://www.linkedin.com/in/miguel-gschrey-555ba0197/)
+Miguel Gschrey (Frontend) - [LinkedIn](https://www.linkedin.com/in/miguel-gschrey-555ba0197/)
 
 
 
