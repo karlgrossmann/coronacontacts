@@ -61,9 +61,10 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 ### Introduction
-<p>
+<p align="center">
   <img src="https://user-images.githubusercontent.com/24880160/105185101-6e2e0680-5b30-11eb-89a7-90382445537b.png" alt="Home Screen" height="400">
-
+</p>
+<p>
 CoronaContacts is intended to be an intuitive app with which customers can leave their contact details at participating restaurants and bars. The background for this is the Corona Pandemic, in which it was necessary in Germany to leave your own contact details in order to be informed in the event of a possible infection. In the process of the project, other features have been added, such as the display of statistics on the current situation of the pandemic in Germany, as well as worldwide. It is also possible to see the crowding of all restaurants in the area, in order to avoid overcrowded localities. The app was developed by 3 students of the Cooperative State University Mannheim as part of a project and is far from being finished or ready for release. It only served as a prototype for the project. Everyone is free to continue the project as fork or to work on the solution in this repository. For more details about the app itself or the backend of the app, please contact one of the people listed below. 
 </p>
 
